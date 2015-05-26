@@ -1,0 +1,107 @@
+1. Create droplet through DigitalOcean - make sure to add dmoore23-blueline ssh key
+2. ssh to droplet on blueline
+3. aptitude update
+4. aptitude install nodejs
+5. aptitude install npm
+6. vim ~/.vimrc
+set shiftwidth=4
+set tabstop=4
+set expandtab
+7. mkdir -p workspace/real-time-chat
+8. cd workspace/real-time-chat
+
+9. vim package.json
+{
+    "name": "RealTimeWebChat",
+    "version": "0.0.0",
+    "description": "Real time web chat",
+    "dependencies": {
+        "socket.io": "latest",
+        "express": "latest",
+        "jade": "latest"
+    },
+    "author": "Dylan Moore
+}
+
+10. npm install
+11. vim index.js
+
+var express = require("express");
+var app = express();
+var port = 3700;
+ 
+app.get("/", function(req, res){
+    res.send("It works!");
+});
+ 
+app.listen(port);
+console.log("Listening on port " + port);
+
+12. go to http://ip:3700 and verify it's working
+13. mkdir template
+14. vim template/page.jade
+doctype html
+html
+    head
+        title= "Real time web chat"
+    body
+        #content(style='width: 500px; height: 300px; margin: 0 0 20px 0; border: solid 1px #999; overflow-y: scroll;')
+        .controls
+            input.field(style='width:350px;')
+            input.send(type='button', value='send')
+
+15. vim index.js
+
+app.set('views', __dirname + '/template');
+app.set('view engine', "jade");
+app.engine('jade', require('jade').__express);
+app.get("/", function(req, res){
+    res.render("page");
+});
+
+16. mkdir public
+17. vim index.js
+// add before listen method
+app.use(express.static(__dirname + '/public'));
+//  Change this line:
+
+app.listen(port);
+
+// to:
+var io = require('socket.io').listen(app.listen(port));
+
+18. vim public/chat.js
+window.onload = function() {
+ 
+    var messages = [];
+    var socket = io.connect('http://localhost:3700');
+    var field = document.getElementById("field");
+    var sendButton = document.getElementById("send");
+    var content = document.getElementById("content");
+ 
+    socket.on('message', function (data) {
+        if(data.message) {
+            messages.push(data.message);
+            var html = '';
+            for(var i=0; i<messages.length; i++) {
+                html += messages[i] + '<br />';
+            }
+            content.innerHTML = html;
+        } else {
+            console.log("There is a problem:", data);
+        }
+    });
+ 
+    sendButton.onclick = function() {
+        var text = field.value;
+        socket.emit('send', { message: text });
+    };
+ 
+}
+
+19. vim template/page.jade
+head
+    title= "Real time web chat"
+    script(src='/chat.js')
+    script(src='/socket.io/socket.io.js')
+
