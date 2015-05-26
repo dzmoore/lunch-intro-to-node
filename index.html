@@ -184,8 +184,8 @@
 ### DEMO - Node.js Code Basics Overview
 * <h1>✓</h1> Create Server (DigitalOcean Droplet)
 * Create workspace and project directory
-* Create `npm` uses `package.json` 
-	* controls project dependencies and version info
+* Create `package.json`
+	* controls project dependencies and version info (`npm`)
 * install and add packages to `package.json` via `npm` 
 	* `npm install --save &lt;package&gt;@&lt;version&gt;` 
 	* example: `npm install --save express@4.10.2`
@@ -204,7 +204,7 @@
 
     ```
     app.get('/', function(request, response) {
-        res.sendfile('index.html');
+        response.sendfile('index.html');
     });
     ```
 </section>
@@ -224,7 +224,7 @@
         socket.emit('chat message', $('#input-msg'.val()));
 
         // clear the input field
-        $('input.msg')
+        $('input.msg').val('');
 
         return false; // don't submit
     });
