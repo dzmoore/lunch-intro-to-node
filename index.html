@@ -40,62 +40,214 @@
 
 			<!-- Any section element inside of this container is displayed as a slide -->
 			<div class="slides">
-				<section data-markdown>
-					# Introduction to Node.js
-					##### Dylan Moore
-				</section>
+<section data-markdown>
+# Introduction to Node.js
+#### Dylan Moore
+</section>
 
-				<section data-markdown>
-					## First, Some Clarifications..
-					* Most of Bernhardt's talk is speculation on what **could** happen in order to honestly discuss JavaScript's impact on software and the internet 
-					* METAL is fictitious, but asm.js is (and the implications raised in the talk are) real
-				</section>
-				<section data-markdown>
-					## And asm.js is...?
-					* http://en.wikipedia.org/wiki/Asm.js 
-					    * asm.js is an intermediate programming language designed to allow computer software written in languages such as C to be run as web applications while maintaining performance characteristics considerably better than standard JavaScript, the typical language used for such applications.
-				</section>
-				<section data-markdown>
-					## Will asm.js Improve My JavaScript Performance?
-					* Stack Overflow user **Bergi**: http://stackoverflow.com/a/15632482
-					    * \> *Not really, because of its dynamic nature. It's the same problem as when trying to compile it to C or even to native code - you actually would need to ship a VM with it to take care of those non-static aspects.* 
-				</section>
-				<section data-markdown>
-					## Can or Can't We Convert Everything to JavaScript?
-					* There **are** utilities that convert C/C++/Java/Python/etc. code to browser-runnable JavaScript/HTML
-					    * **emscripten** - C/C++ to as.js 
-					        * http://kripken.github.io/emscripten-site
-					    * **XMLVM** - .NET/Java/Ruby --> JVM Bytecode --> iOS/C/Javascript/Java
-					        * http://www.xmlvm.org
-					* **But** these tools require porting effort for non-trivial applications
-				</section>
+<section data-markdown>
+### Intro
+#### The What
+* Node.js is an open source (MIT), cross-platform runtime environment for server-side and networking applications
+</section>
+<section data-markdown>
+### Intro 
+#### The Who
+* developed by Ryan Dahl in 2009 aiming to create real-time websites with push capability
+* Received standing ovation when presented at European JSConf in 2009 
+</section>
+<section data-markdown>
+### Intro
+#### The Why
+* Node.js is for web applications with real-time, two-way communication
+* NO applets/flash - uses open web stack (HTTP/JavaScript/Sockets/Etc.)
+</section>
 
-				<section data-markdown>
-					## Will All Apps Eventually Become Web Apps?
-					* Maybe? At this point all we know is that there have been some impressive native-to-JavaScript/HTML ports
-					* **QuakeJs** - Quake3 port that runs in the browser
-					    * http://www.quakejs.com/
-					* **SQLite**
-					    * http://kripken.github.io/sql.js/GUI/
-					* **Python/Ruby/Java/Python/More** - In-Browser Compiler/Interpreters
-					    * http://repl.it/languages 
-				</section>
 
-				<section>
-					<h2>Watch</h2>
-					<iframe src="https://www.destroyallsoftware.com/talks/the-birth-and-death-of-javascript" width="800" height="600">
-					  <p>Your browser does not support iframes.</p>
-					</iframe>
-				</section>
-				<section data-markdown>
-					## References
-					* https://www.destroyallsoftware.com/talks/the-birth-and-death-of-javascript
-					* https://github.com/kripken/emscripten/wiki/porting-examples-and-demos
-					* http://kripken.github.io/emscripten-site
-					* http://www.xmlvm.org
-					* http://asmjs.org/
-				</section>
+<section data-markdown>
+### High Scalability
+* Node is not a silver bullet new platform that will dominate the web development world
+* Node fills a particular need: building fast, scalable network applications, capable of handling a huge number of simultaneous connections
+</section>
 
+<section data-markdown>
+### What Are My PitFalls With Node?
+* node is crummy for heavy computation, CPU-intensive operations 
+* using node for this will void most of its advantages
+</section>
+
+<section data-markdown>
+## Node.js
+* event-drive architecture and non-blocking IO API 
+* node.js uses Google V8 JavaScript engine to execute code
+* JavaScript is a well-known language - accessible to many developers
+* Node.js combined with a browser, a document DB (MongoDB, CouchDB) and JSON offers a unified JavaScript development stack
+</section>
+
+<section data-markdown>
+## Google V8
+* V8 is open source (BSD license)
+* V8 is fast
+    * compiles js to native machine code prior to execution
+    * compiled code is additionally re/optimized dynamically at runtime based on heuristics of the code's execution profile
+* V8 is focused on the web - proficient with internet fundamentals such as HTTP, DNS, TCP
+
+</section>
+
+<section>
+	<h4>How It Works - Traditional Web Server</h4>
+	<img src="img/traditional-web-server.png"/>
+</section>
+
+<section>
+	<h4>How It Works - Node Web Server</h4>
+	<img src="img/node-web-server.png"/>
+</section>
+
+<section data-markdown>
+### How It Works
+* **node web server** - all requests handled by a single thread -- much higher scalability as you are no longer tied to thread overhead/RAM
+* **upside** - highly concurrent applications
+	* 1M concurrent connections on 16GB server -- http://blog.caustik.com/2012/08/19/node-js-w1m-concurrent-connections/
+* **downside** - node.js doesn't allow scaling with number of CPU cores w/o using additional modules such as cluster, StrongLoop Process Manager, pm2
+</section>
+
+<section data-markdown>
+### Package Management
+* **npm** - package manager for node.js server platform
+* used to install programs from npm registry
+* helps developers build faster by organizing installation and management (similar to maven/apt-get/etc.)
+* similar to ruby gems
+</section>
+<section data-markdown>
+### Popular Packages I
+* **underscore** - provides utility functions - "JavaScript's functional programming helper library"
+    * most depended upon package in Node.js JavaScript runtime
+* **express** - web development framework and the de-facto standard for the majority of Node.js applications out there today.
+* **coffee-script** - "Unfancy JavaScript"
+    * CoffeeScript compiler that allows developers to write their Node.js programs using Coffee.
+* **browserify** - bundle your dependencies into a single js file that can be included with a script tag
+</section>
+<section data-markdown>
+### Popular Packages II
+* **connect** - extensible HTTP server framework, providing a collection of high performance "plugins" known as middleware; serves as a base foundation for Express.
+* **socket.io** and **sockjs** - Server-side component of the two most common websockets components out there today.
+* **Jade** - One of the popular templating engines, inspired by HAML, a default in Express.js.
+* **mongo** and **mongojs** - MongoDB wrappers to provide the API for MongoDB object databases 
+* **forever** - most common utility for ensuring that a given node script runs continuously
+</section>
+
+<section data-markdown>
+#### When Not to Use Node?
+> "...blocking operations are the root of all evil—99% of Node misuses come as a direct consequence." 
+- Tomislav Capan, 2013
+</section>
+
+<section data-markdown>
+#### Less Good Node Use Cases
+* **Server-Side Web Application with Relational Database**
+    * Additional Components Needed, Less Mature
+        * **Sequelize** - http://docs.sequelizejs.com/en/latest/
+        * **Object Relational Mapping** (node-orm2) - http://dresende.github.io/node-orm2/
+* **Heavy Server-Side Computation and/or Processing**
+    * CPU-intense operations annuls Node throughput benefits
+    * But you could always throw heavy computations into a background process - RabbitMQ, ZeroMQ, etc.
+</section>
+
+<section data-markdown>
+#### Good Node Use Cases I
+* **Chat/Messaging**
+	* Messages relatively small
+* **API on top of an Object DB (MongoDB)**
+    * no data conversion
+        * Rails - convert from JSON to binary models, then expose back as JSON over HTTP 
+* **Queued Inputs**
+    * useful when the client doesn't need to confirm successful data write (eventual consistency)
+    * data queued through some type of cache or message queueing (RabbitMQ, ZeroMQ)
+</section>
+
+<section data-markdown>
+#### Good Node Use Cases II
+* **Data Streaming**
+    * HTTP requests/responses are streams, not isolated events
+    * Process files while they are still uploading
+    * Real-time audio or video encoding
+* **Application Monitoring Dashboard**
+    * Gather real-time stats from your user
+    * Even reacting to user events realtime
+* **System Monitoring Dashboard**
+    * Check infrastructure services asynchronously and push data to web clients
+</section>
+
+
+<section data-markdown>
+### DEMO - Node.js Code Basics Overview
+* <h1>✓</h1> Create Server (DigitalOcean Droplet)
+* Create workspace and project directory
+* Create `npm` uses `package.json` 
+	* controls project dependencies and version info
+* install and add packages to `package.json` via `npm` 
+	* `npm install --save &lt;package&gt;@&lt;version&gt;` 
+	* example: `npm install --save express@4.10.2`
+* Create a 'main' type file -- `index.js`
+* Create an HTML page to serve (frontend) -- `index.html`
+    *we could use a templating engine (Jade) here, but that is for another demo*
+</section>
+
+<section data-markdown>
+### DEMO PRE-REQS
+##### Node.js Server-Side Code Overview
+* **`require`** imports components
+    * example: `var app = require('express')();`
+* **Callbacks!**
+    * example: 
+
+    ```
+    app.get('/', function(request, response) {
+        res.sendfile('index.html');
+    });
+    ```
+</section>
+
+<section> 
+<h3>DEMO PRE-REQS</h3>
+<h5>Node.js Client-Side Code Overview</h5>
+
+<pre>
+	<code>
+&lt;script src=&quot;https://cdn.socket.io/socket.io-1.2.0.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;https://code.jquery.com/jquery-1.11.1.js&quot;&gt;&lt;/script&gt;
+&lt;script&gt;
+    var socket = io();
+    $('form').submit(function() {
+        // send the chat
+        socket.emit('chat message', $('#input-msg'.val()));
+
+        // clear the input field
+        $('input.msg')
+
+        return false; // don't submit
+    });
+&lt;/script&gt;
+	</code>
+</pre>
+</section>
+
+<section data-markdown>
+#### Put Your Demo Shoes On
+```
+git clone https://github.com/youcaughtafish/lunch-intro-node-chat.git
+```
+</section>
+
+<section data-markdown>
+#### References
+* http://en.wikipedia.org/wiki/Node.js 
+* http://www.toptal.com/nodejs/why-the-hell-would-i-use-node-js
+* http://code.tutsplus.com/tutorials/real-time-chat-with-nodejs-socket-io-and-expressjs--net-31708
+* http://socket.io/get-started/chat/
+</section>
+	
 			</div>
 
 		</div>

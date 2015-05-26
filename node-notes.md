@@ -79,8 +79,49 @@
             * 'Object Relational Mapping' (node-orm2) - http://dresende.github.io/node-orm2/
     * Heavy Server-Side Computation and/or Processing
         * CPU-intense operations annuls Node throughput benefits
-        * But you could always throw heavy computations into a background process - RabbitMQ, ZeroMQ, etc. 
+        * But you could always throw heavy computations into a background process - RabbitMQ, ZeroMQ, etc.
+#### Node.js Code Basics Overview
+    1. <h1>✓</h1> Create Server (DigitalOcean Droplet)
+    2. Create workspace and project directory
+    3. Create `npm` uses `package.json` -- controls project dependencies and version info
+    4. install and add packages to `package.json` via `npm` -- `npm install --save <package>@<version>`
+        example: `npm install --save express@4.10.2`
+    5. Create a 'main' type file -- `index.js`
+    6. Create an HTML page to serve (frontend) -- `index.html`
+        *we could use a templating engine (Jade) here, but that is for another demo*
+#### Node.js Server-Side Code Overview
+    1. `require` imports applications
+        example: `var app = require('express')();`
+    2. Callbacks!
+        example: 
 
+        ```
+        app.get('/', function(request, response) {
+            res.sendfile('index.html');
+        });
+        ```
+#### Node.js Client-Side Code Overview
+    ##### It's the same thing you're used to:
+    
+    ```
+    <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
+    <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+    <script>
+        var socket = io();
+        $('form').submit(function() {
+            // send the chat
+            socket.emit('chat message', $('#input-msg'.val()));
+
+            // clear the input field
+            $('input.msg')
+
+            return false; // don't submit
+    </script>
+    ```
+
+#### PYDSO -- Put Your Demo Shoes On
+1. `npm install --save express`
+2. `npm install --save socket.io`
 
 
 #### References
